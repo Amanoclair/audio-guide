@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Listen to Audio</title>
+  <title>À la découverte de 2 souvenirs de Clairefontaine</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -19,7 +19,20 @@
       text-align: center;
       box-sizing: border-box;
     }
-    h1 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .org-name {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #aaaaaa;
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+      line-height: 1.3;
+    }
     #play-btn {
       background-color: #ff5500;
       color: white;
@@ -32,44 +45,52 @@
       box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
       margin-bottom: 24px;
     }
-    #play-btn:active { transform: scale(0.97); }
-    .player-wrap { width: 100%; max-width: 500px; }
+    #play-btn:active {
+      transform: scale(0.97);
+    }
+    .player-wrap {
+      width: 100%;
+      max-width: 500px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Audio Track</h1>
-  <button id="play-btn">▶ Tap to Listen</button>
+  <div class="org-name">Comité Histoire Amanoclair</div>
+  <h1>À la découverte de 2 souvenirs de Clairefontaine</h1>
+
+  <button id="play-btn">▶ Lancer l'écoute</button>
 
   <div class="player-wrap">
     <iframe 
       id="sc-widget" 
       width="100%" 
-      height="166" 
+      height="300" 
       scrolling="no" 
       frameborder="no" 
-      allow="autoplay" 
-      src="https://soundcloud.com/comitehistoireamanoclair/pilote-2-fichier-audio-a-la?si=f88ef13bbdb04eb292671cb1f774b7b0&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+      allow="autoplay; encrypted-media" 
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2445207240&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true
+">
     </iframe>
   </div>
 
-  <script src="https://soundcloud.com/comitehistoireamanoclair/pilote-2-fichier-audio-a-la?si=f88ef13bbdb04eb292671cb1f774b7b0&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"></script>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
   <script>
     const iframe = document.getElementById('sc-widget');
     const widget = SC.Widget(iframe);
     const playBtn = document.getElementById('play-btn');
 
-    // Attempt autoplay immediately (works on desktop or allowed browsers)
+    // Tentative de lecture automatique dès que le lecteur est prêt
     widget.bind(SC.Widget.Events.READY, () => {
       widget.play();
     });
 
-    // Hide the big button once audio actually starts playing
+    // Masque le bouton une fois que la lecture démarre
     widget.bind(SC.Widget.Events.PLAY, () => {
       playBtn.style.display = 'none';
     });
 
-    // Fallback tap trigger for iOS & Android
+    // Déclenchement au toucher pour iOS et Android
     playBtn.addEventListener('click', () => {
       widget.play();
     });
@@ -77,4 +98,3 @@
 
 </body>
 </html>
-
