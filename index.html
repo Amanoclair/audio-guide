@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listen to Audio</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    #play-btn {
+      background-color: #ff5500;
+      color: white;
+      border: none;
+      padding: 18px 36px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
+      margin-bottom: 24px;
+    }
+    #play-btn:active { transform: scale(0.97); }
+    .player-wrap { width: 100%; max-width: 500px; }
+  </style>
+</head>
+<body>
+
+  <h1>Audio Track</h1>
+  <button id="play-btn">▶ Tap to Listen</button>
+
+  <div class="player-wrap">
+    <iframe 
+      id="sc-widget" 
+      width="100%" 
+      height="166" 
+      scrolling="no" 
+      frameborder="no" 
+      allow="autoplay" 
+      src="https://on.soundcloud.com/bSoVdgi2PQUcalDCXt">
+    </iframe>
+  </div>
+
+  <script src="https://soundcloud.com"></script>
+  <script>
+    const iframe = document.getElementById('sc-widget');
+    const widget = SC.Widget(iframe);
+    const playBtn = document.getElementById('play-btn');
+
+    // Attempt autoplay immediately (works on desktop or allowed browsers)
+    widget.bind(SC.Widget.Events.READY, () => {
+      widget.play();
+    });
+
+    // Hide the big button once audio actually starts playing
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      playBtn.style.display = 'none';
+    });
+
+    // Fallback tap trigger for iOS & Android
+    playBtn.addEventListener('click', () => {
+      widget.play();
+    });
+  </script>
+
+</body>
+</html>
 
